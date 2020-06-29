@@ -2,12 +2,14 @@ import React from 'react'
 import { Route, Switch, BrowserRouter } from 'react-router-dom'
 import Login from '../view/login'
 import CadastroUsuario from '../view/cadastroUsuario'
+import Home from '../view/home'
 function Rotas() {
     return (
         <BrowserRouter>
             <Switch>
-                <Route exact path="/login" component={Login}/>        
-                <Route exact path="/cadastro-usuario" component={CadastroUsuario}/>        
+                <Route exact path="/home" component={Home} />
+                {/*<Route exact path="/login" component={Login}/>
+                <Route exact path="/cadastro-usuario" component={CadastroUsuario}/>*/}
             </Switch>
         </BrowserRouter>
     )

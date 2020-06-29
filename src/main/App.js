@@ -9,9 +9,7 @@ class App extends React.Component{
     return(
       <>
       <Navbar/>
-      <div className="container">
         <Rotas/>
-    </div>
     </>
     )
   }
