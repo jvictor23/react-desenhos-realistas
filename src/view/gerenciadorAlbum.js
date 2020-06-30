@@ -40,7 +40,7 @@ class GerenciadorAlbum extends React.Component {
     }
 
     abrirAlbum(album){
-        window.open('/admin/album/'+album._id)
+        this.props.history.push('/admin/album/'+album._id, {dadosAlbum: album})        
     }
 
     render() {

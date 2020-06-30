@@ -7,7 +7,7 @@ import {withRouter} from 'react-router-dom'
 class Home extends React.Component {
 
     abrirGerenciamentodeImagens = ()=>{
-       this.props.history.push('/gerenciador-imagem');
+       this.props.history.push('/admin/gerenciador-album');
     }
 
     render() {
