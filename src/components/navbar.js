@@ -20,7 +20,7 @@ function Navbar(props) {
                 </button>
                 <section className="collapse navbar-collapse" id="navbarMainToggler">
                     <div className="navbar-nav ml-auto">
-                        <NavbarItem href="/home" label={props.item} />
+                        <NavbarItem href={props.href} label={props.item} />
                         {/*<NavbarItem href="/login" label="Login" />
                         <NavbarItem href="/cadastro-usuario" label="Cadastro" />*/}
                     </div>

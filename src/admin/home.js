@@ -2,41 +2,36 @@ import React from 'react'
 import Navbar from '../components/navbar'
 import img1 from '../img/img1.png'
 import '../css/admin.css'
+import {withRouter} from 'react-router-dom'
+
 class Home extends React.Component {
 
-    pegarArquivos(){
-       
+    abrirGerenciamentodeImagens = ()=>{
+       this.props.history.push('/gerenciador-imagem');
     }
 
     render() {
         return (
             <div>
                 <Navbar brand="Fabricio Flores Desenhos Realistas" item="Home" />
-                <div className="container text-center">
+                <div className="container">
 
-                    <div style={{ marginTop: "10px" }}>
+                    <div className="card-columns" style={{ marginTop: "10px" }}>
 
-                        <div className="card-deck">
+                        <div className="">
                             
-                            <div id="card" className="card" onClick={this.pegarArquivos}>
+                            <div id="card" className="card" onClick={this.abrirGerenciamentodeImagens}>
                                 <img className="card-img-top" src={img1} alt="Imagem de capa do card" />
                                 <div className="card-body">
-                                    <h5 className="card-title text-center">Adicionar Imagem</h5>
+                                    <h5 className="card-title text-center">Gerenciar Imagem</h5>
                                     
-                                </div>
-                            </div>
-
-                            <div id="card" className="card">
-                                <img className="card-img-top" src={img1} alt="Imagem de capa do card" />
-                                <div className="card-body">
-                                    <h5 className="card-title text-center">Ver todas imagem</h5>
                                 </div>
                             </div>
 
                             <div  className="card" style={{backgroundColor:"gray"}}>
                                 <img className="card-img-top" src={img1} alt="Imagem de capa do card" />
                                 <div className="card-body">
-                                    <h5 className="card-title text-center">Adicionar VideoAulas</h5>
+                                    <h5 className="card-title text-center">Gerenciar VideoAulas</h5>
                                 </div>
                             </div>
                            
@@ -52,4 +47,4 @@ class Home extends React.Component {
     }
 }
 
-export default Home;
+export default withRouter(Home)
