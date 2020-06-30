@@ -1,0 +1,9 @@
+#card{
+  box-shadow: 1px 2px 2px #aaaaaa;
+  cursor: pointer;
+
+}
+
+#card:hover{
+    top:-3px;
+}

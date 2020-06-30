@@ -1,6 +1,6 @@
 import React from 'react'
-import '../footer.css'
-import { Link } from '@material-ui/core'
+import '../css/footer.css'
+
 
 export default function footer() {
     function link(data){

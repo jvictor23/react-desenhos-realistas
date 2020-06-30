@@ -4,10 +4,12 @@ import imgHome from '../img/home.png'
 import img1 from '../img/img1.png'
 import img2 from '../img/img2.png'
 import img3 from '../img/img3.png'
+import Navbar from '../components/navbar'
 class Home extends React.Component {
     render() {
         return (
             <div>
+                <Navbar brand="Fabricio Flores Desenhos Realistas" item="Home"/>
                 <div className="container">
                     <div className="card mb-3">
                         <img className="card-img-top" src={imgHome} alt="Imagem de capa do card" style={{ height: "270px" }} />
@@ -15,7 +17,7 @@ class Home extends React.Component {
                 </div>
 
                 <div className="container">
-                <div class="card-group">
+                <div class="card-deck">
                     <div class="card">
                         <img class="card-img-top" src={img1} alt="Imagem de capa do card" />
                         <div class="card-body">

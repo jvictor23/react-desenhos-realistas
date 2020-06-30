@@ -6,7 +6,7 @@ function Navbar(props) {
             <nav className="navbar navbar-expand-md navbar-light" style={{backgroundColor:"#EEEDEC"}}>
 
 
-                <a className="navbar-brand" href="#">Fabricio Flores Desenhos Realistas</a>
+                    <a className="navbar-brand" href="#">{props.brand}</a>
 
                 <button
                     className="navbar-toggler"
@@ -20,7 +20,7 @@ function Navbar(props) {
                 </button>
                 <section className="collapse navbar-collapse" id="navbarMainToggler">
                     <div className="navbar-nav ml-auto">
-                        <NavbarItem href="/home" label="Home" />
+                        <NavbarItem href="/home" label={props.item} />
                         {/*<NavbarItem href="/login" label="Login" />
                         <NavbarItem href="/cadastro-usuario" label="Cadastro" />*/}
                     </div>
