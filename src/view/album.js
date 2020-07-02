@@ -9,7 +9,7 @@ class Album extends React.Component {
         super(props);
         this.state = {
             imagens: [],
-            titulo: '',
+            titulo: '', 
             uploadImagem: null
         }
     }
@@ -18,7 +18,6 @@ class Album extends React.Component {
         document.title = "Album - " + this.props.location.state.dadosAlbum.titulo
         api.get('/admin/post/img/'+this.props.location.state.dadosAlbum._id)
         .then(res=>{
-            console.log(res)
             this.setState({imagens: res.data})
         })
         .catch(error=>{
@@ -44,16 +43,16 @@ class Album extends React.Component {
             //Upload Imagem
             api.post('/admin/upload/img', formData)
                 .then(res => {
-                    console.log(res)
-                    //Salvar dados da imagem
+                    
                     api.post('/admin/post/img', {
                         titulo: this.state.titulo,
                         key: res.data.fileName,
                         size: res.data.size,
-                        url: res.data.path,
+                        url: res.data.url,
                         idAlbum: this.props.location.state.dadosAlbum._id
                     })
                         .then(res => {
+                            console.log(res)
                             this.setState({imagens:[...this.state.imagens, res.data]})
                         })
                         .catch(error => {
@@ -102,7 +101,7 @@ class Album extends React.Component {
                         {this.state.imagens.length === 0 ? <div className="text-left">Nenhum imagem foi adicionada!</div> :
                             this.state.imagens.map((imagem) => (
                                 <div id="card" className="card" key={imagem._id}>
-                                    <img className="card-img-top" src={"https://cdn02.nintendo-europe.com/media/images/10_share_images/games_15/nintendo_switch_download_software_1/H2x1_NSwitchDS_Hue_image1600w.jpg"} alt="Imagem de capa do card" />
+                                    <img className="card-img-top" src={imagem.url} alt="Imagem de capa do card" />
                                     <div className="card-body">
                                         <h5 className="card-title text-center">{imagem.titulo}</h5>
                                     </div>
