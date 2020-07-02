@@ -110,7 +110,7 @@ class Album extends React.Component {
                         }
                     </div>
 
-                    </div>
+                </div>
 
             </div>
         )
