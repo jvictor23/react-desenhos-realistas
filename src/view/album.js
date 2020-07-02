@@ -9,20 +9,30 @@ class Album extends React.Component {
         super(props);
         this.state = {
             imagens: [],
-            titulo: '', 
-            uploadImagem: null
+            imgExpanded: '',
+            tituloPagina:''
         }
     }
 
     componentDidMount() {
-        document.title = "Album - " + this.props.location.state.dadosAlbum.titulo
-        api.get('/admin/post/img/'+this.props.location.state.dadosAlbum._id)
-        .then(res=>{
-            this.setState({imagens: res.data})
-        })
-        .catch(error=>{
-            console.log(error)
-        })
+        
+
+       api.get('/get/album/'+this.props.match.params.id)
+       .then(res=>{
+        document.title = "Album - " + res.data.titulo;
+        this.setState({tituloPagina: res.data.titulo});
+       })
+       .catch(error=>{
+           console.log(error)
+       })
+        api.get('/get/post/img/' + this.props.match.params.id)
+            .then(res => {
+                this.setState({ imagens: res.data })
+               // console.log(res)
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
     onChangeHandler = event => {
@@ -32,65 +42,24 @@ class Album extends React.Component {
         })
     }
 
-    adicionarImagem = () => {
-
-        if (this.state.uploadImagem !== null) {
-            const formData = new FormData();
-            formData.append(
-                'file',
-                this.state.uploadImagem,
-            )
-            //Upload Imagem
-            api.post('/admin/upload/img', formData)
-                .then(res => {
-                    
-                    api.post('/admin/post/img', {
-                        titulo: this.state.titulo,
-                        key: res.data.fileName,
-                        size: res.data.size,
-                        url: res.data.url,
-                        idAlbum: this.props.location.state.dadosAlbum._id
-                    })
-                        .then(res => {
-                            console.log(res)
-                            this.setState({imagens:[...this.state.imagens, res.data]})
-                        })
-                        .catch(error => {
-                            console.log(error)
-                        })
-
-
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-        }
-
+    abrirImagem = (album) => {
+        this.setState({ imgExpanded: album.url })
     }
 
     render() {
         return (
             <div>
-                <Navbar brand={"Album - " + this.props.location.state.dadosAlbum.titulo} item={<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#ExemploModalCentralizado">Adicionar Imagem</button>} />
-                <div className="modal fade" id="ExemploModalCentralizado" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
-                    <div className="modal-dialog modal-dialog-centered" role="document">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title" id="TituloModalCentralizado">Adicionar Imagem</h5>
-                                <button type="button" className="close" data-dismiss="modal" aria-label="Fechar">
+                <Navbar brand={"Album - " + this.state.tituloPagina} item="Home" />
+           
+                <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div className="modal-header">
+                        <button type="button" className="close" data-dismiss="modal" aria-label="Fechar">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
-                            </div>
-                            <div className="modal-body">
-                                <input type="file" name="file" onChange={this.onChangeHandler} />
-                                <FomrGroup label="Titulo" htmlfor="tituloDaImagem  ">
-                                    <input type="text" className="form-control" placeholder="Digite o titulo da imagem" style={{ marginTop: "10px" }} value={this.state.titulo} onChange={e => { this.setState({ titulo: e.target.value }) }} />
-                                </FomrGroup>
-                            </div>
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-danger" data-dismiss="modal">Fechar</button>
-                                <button type="button" className="btn btn-success" data-dismiss="modal" onClick={this.adicionarImagem}>Salvar</button>
-                            </div>
+                        </div>
+                        <div class="modal-content">
+                            <img src={this.state.imgExpanded}/>
                         </div>
                     </div>
                 </div>
@@ -100,7 +69,7 @@ class Album extends React.Component {
                     <div className="card-columns" style={{ marginTop: "10px" }}>
                         {this.state.imagens.length === 0 ? <div className="text-left">Nenhum imagem foi adicionada!</div> :
                             this.state.imagens.map((imagem) => (
-                                <div id="card" className="card" key={imagem._id}>
+                                <div id="card" className="card" key={imagem._id} type="button" data-toggle="modal" data-target=".bd-example-modal-lg" onClick={() => this.abrirImagem(imagem)}>
                                     <img className="card-img-top" src={imagem.url} alt="Imagem de capa do card" />
                                     <div className="card-body">
                                         <h5 className="card-title text-center">{imagem.titulo}</h5>
@@ -110,7 +79,7 @@ class Album extends React.Component {
                         }
                     </div>
 
-                    </div>
+                </div>
 
             </div>
         )

@@ -6,6 +6,7 @@ import img2 from '../img/img2.png'
 import img3 from '../img/img3.png'
 import Navbar from '../components/navbar'
 import api from '../serverConnection/api'
+import '../css/home.css'
 class Home extends React.Component {
 
     constructor(props) {
@@ -26,13 +27,17 @@ class Home extends React.Component {
             })
     }
 
+    abrirAlbum(album){
+        this.props.history.push('/album/'+album._id, {dadosAlbum: album})        
+    }
+
     render() {
         return (
             <div>
                 <Navbar brand="Fabricio Flores Desenhos Realistas" item="Home" />
                 <div className="container">
                     <div className="card mb-3">
-                        <img className="card-img-top" src={imgHome} alt="Imagem de capa do card" style={{ height: "270px" }} />
+                        <img className="card-img-top" src={imgHome} alt="Imagem de capa do card" style={{ height: "250px" }} />
                     </div>
                 </div>
 
@@ -40,7 +45,7 @@ class Home extends React.Component {
                     <div class="card-deck">
                         {
                             this.state.albuns.map((album) => (
-                                <div class="card">
+                                <div id="card" class="card" onClick={()=>this.abrirAlbum(album)}>
                                     <img class="card-img-top" src={img1} alt="Imagem de capa do card" />
                                     <div class="card-body">
                                         <h5 class="card-title text-center">{album.titulo}</h5>
