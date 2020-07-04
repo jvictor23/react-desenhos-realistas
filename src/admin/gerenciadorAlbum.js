@@ -46,7 +46,7 @@ class GerenciadorAlbum extends React.Component {
     render() {
         return (
             <div>
-                <Navbar brand="Gerenciador de Imagens" item={<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#ExemploModalCentralizado">Criar Album</button>} />
+                <Navbar brand="Gerenciador de Albuns" item={<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#ExemploModalCentralizado">Criar Album</button>} />
                 <div className="modal fade" id="ExemploModalCentralizado" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered" role="document">
                         <div className="modal-content">
@@ -75,7 +75,7 @@ class GerenciadorAlbum extends React.Component {
                         {this.state.albuns.length===0 ? <div className="text-left">Nenhum album foi criado!</div> :
                             this.state.albuns.map((album) => (
                                 <div id="card" className="card" key={album._id} onClick={()=>this.abrirAlbum(album)}>
-                                    <img className="card-img-top" src={album.ultimaImagem ? album.ultimaImagem  :  img1} alt="Imagem de capa do card" />
+                                    <img className="card-img-top" src={album.urlUltimaImagem ? album.urlUltimaImagem : img1} style={{height:"250px"}} alt="Imagem de capa do card" />
                                     <div className="card-body">
                                         <h5 className="card-title text-center">{album.titulo}</h5>
                                     </div>

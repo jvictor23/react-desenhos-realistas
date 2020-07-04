@@ -49,10 +49,10 @@ class Album extends React.Component {
     render() {
         return (
             <div>
-                <Navbar brand={"Album - " + this.state.tituloPagina} item="Home" />
+                <Navbar brand={"Album - " + this.state.tituloPagina} item="Home" href="/home"/>
            
                 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
+                    <div class="modal-dialog modal-md">
                         <div className="modal-header">
                         <button type="button" className="close" data-dismiss="modal" aria-label="Fechar">
                                     <span aria-hidden="true">&times;</span>
@@ -66,11 +66,11 @@ class Album extends React.Component {
 
                 <div className="container">
 
-                    <div className="card-columns" style={{ marginTop: "10px" }}>
+                    <div className="card-columns" style={{ marginTop: "10px"}}>
                         {this.state.imagens.length === 0 ? <div className="text-left">Nenhum imagem foi adicionada!</div> :
                             this.state.imagens.map((imagem) => (
                                 <div id="card" className="card" key={imagem._id} type="button" data-toggle="modal" data-target=".bd-example-modal-lg" onClick={() => this.abrirImagem(imagem)}>
-                                    <img className="card-img-top" src={imagem.url} alt="Imagem de capa do card" />
+                                    <img className="card-img-top" src={imagem.url} style={{height:"250px"}} alt="Imagem de capa do card" />
                                     <div className="card-body">
                                         <h5 className="card-title text-center">{imagem.titulo}</h5>
                                     </div>
@@ -80,7 +80,6 @@ class Album extends React.Component {
                     </div>
 
                 </div>
-
             </div>
         )
     }

@@ -9,20 +9,20 @@ class Album extends React.Component {
         super(props);
         this.state = {
             imagens: [],
-            titulo: '', 
+            titulo: '',
             uploadImagem: null
         }
     }
 
     componentDidMount() {
         document.title = "Album - " + this.props.location.state.dadosAlbum.titulo
-        api.get('/admin/post/img/'+this.props.location.state.dadosAlbum._id)
-        .then(res=>{
-            this.setState({imagens: res.data})
-        })
-        .catch(error=>{
-            console.log(error)
-        })
+        api.get('/admin/post/img/' + this.props.location.state.dadosAlbum._id)
+            .then(res => {
+                this.setState({ imagens: res.data })
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
     onChangeHandler = event => {
@@ -43,17 +43,28 @@ class Album extends React.Component {
             //Upload Imagem
             api.post('/admin/upload/img', formData)
                 .then(res => {
-                    
+                    //console.log(res)
+                    //Salvar dados da Imagem
                     api.post('/admin/post/img', {
                         titulo: this.state.titulo,
                         key: res.data.fileName,
                         size: res.data.size,
                         url: res.data.url,
-                        idAlbum: this.props.location.state.dadosAlbum._id
+                        idAlbum: this.props.match.params.id
                     })
                         .then(res => {
                             console.log(res)
-                            this.setState({imagens:[...this.state.imagens, res.data]})
+                            this.setState({ imagens: [...this.state.imagens, res.data] })
+                            //Atualiza a ultima imagem para a capa do album
+                            api.put('/admin/album/' + this.props.match.params.id, {
+                                urlUltimaImagem: res.data.url
+                            })
+                                .then(res => {
+                                    // console.log(res)
+                                })
+                                .catch(error => {
+                                    console.log(error);
+                                })
                         })
                         .catch(error => {
                             console.log(error)

@@ -1,6 +1,5 @@
 import React from 'react'
-import Footer from '../components/footer'
-import imgHome from '../img/home.png'
+import Banner from '../img/Banner.png'
 import img1 from '../img/img1.png'
 import img2 from '../img/img2.png'
 import img3 from '../img/img3.png'
@@ -27,17 +26,17 @@ class Home extends React.Component {
             })
     }
 
-    abrirAlbum(album){
-        this.props.history.push('/album/'+album._id, {dadosAlbum: album})        
+    abrirAlbum(album) {
+        this.props.history.push('/album/' + album._id, { dadosAlbum: album })
     }
 
     render() {
         return (
             <div>
-                <Navbar brand="Fabricio Flores Desenhos Realistas" item="Home" />
+                <Navbar brand="Fabricio Flores Desenhos Realistas" item="Home" href="/home" />
                 <div className="container">
                     <div className="card mb-3">
-                        <img className="card-img-top" src={imgHome} alt="Imagem de capa do card" style={{ height: "250px" }} />
+                        <img className="card-img-top" src={Banner} alt="Imagem de capa do card" style={{ height: "150px" }} />
                     </div>
                 </div>
 
@@ -45,8 +44,8 @@ class Home extends React.Component {
                     <div class="card-deck">
                         {
                             this.state.albuns.map((album) => (
-                                <div id="card" class="card" onClick={()=>this.abrirAlbum(album)}>
-                                    <img class="card-img-top" src={img1} alt="Imagem de capa do card" />
+                                <div id="card" class="card" onClick={() => this.abrirAlbum(album)}>
+                                    <img class="card-img-top" src={album.urlUltimaImagem ? album.urlUltimaImagem : img1} style={{height:"250px"}} alt="Imagem de capa do card" />
                                     <div class="card-body">
                                         <h5 class="card-title text-center">{album.titulo}</h5>
                                         {/*<p class="card-text"><small class="text-muted">Atualizados 3 minutos atrás</small></p>*/}
@@ -58,8 +57,12 @@ class Home extends React.Component {
                     </div>
                 </div>
 
-                <Footer />
+                <div className="container">
+
+                </div>              
+               
             </div>
+
         )
     }
 }
