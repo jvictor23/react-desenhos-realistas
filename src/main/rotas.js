@@ -28,7 +28,7 @@ const Rotas = () =>  (
                 <Route exact path="/admin/album/:id" component={AlbumAdmin} />
                 <Route exact path="/album/:id" component={Album} />
                 <Route exact path="/admin" component={Login}/>
-                <Route exact path="/cadastro-usuario" component={CadastroUsuario}/>
+                {/* <Route exact path="/cadastro-usuario" component={CadastroUsuario}/> */}
             </Switch>
         </BrowserRouter>
     );
