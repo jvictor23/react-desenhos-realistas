@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+export default function SignIn(props) {
   const classes = useStyles();
 
   const [email, setEmail] = useState('');
@@ -59,10 +59,12 @@ export default function SignIn() {
           senha: senha
       })
       .then(res =>{
-          console.log(res);
+        console.log(res);
+        localStorage.setItem('_usuarioLogado', JSON.stringify(res.data))
+        props.history.push('/admin/home');
       })
       .catch(error =>{
-          console.log(error.response);
+          console.log(error);
       })
   }
 

@@ -1,8 +1,9 @@
 import React from 'react'
 import Navbar from '../components/navbar'
 import FomrGroup from '../components/form-group'
-import img1 from '../img/img1.png'
 import api from '../serverConnection/api'
+import Modal from '../components/modal'
+var imagemTemporaria;
 class Album extends React.Component {
 
     constructor(props) {
@@ -10,6 +11,7 @@ class Album extends React.Component {
         this.state = {
             imagens: [],
             titulo: '',
+            tituloTemporario: '',
             uploadImagem: null
         }
     }
@@ -18,6 +20,7 @@ class Album extends React.Component {
         document.title = "Album - " + this.props.location.state.dadosAlbum.titulo
         api.get('/admin/post/img/' + this.props.location.state.dadosAlbum._id)
             .then(res => {
+                console.log(res.data)
                 this.setState({ imagens: res.data })
             })
             .catch(error => {
@@ -32,9 +35,25 @@ class Album extends React.Component {
         })
     }
 
+    excluirImagem = () => {
+
+        api.delete('admin/post/img/' + imagemTemporaria._id)
+            .then(res => {
+                this.componentDidMount()
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
+    pegarDadosImagem = imagemData => {
+        imagemTemporaria = imagemData;
+        this.setState({tituloTemporario: imagemData.titulo});
+    }
+
     adicionarImagem = () => {
 
-        if (this.state.uploadImagem !== null) {
+        if (this.state.uploadImagem !== null && this.state.titulo !== '') {
             const formData = new FormData();
             formData.append(
                 'file',
@@ -75,6 +94,8 @@ class Album extends React.Component {
                 .catch(error => {
                     console.log(error)
                 })
+        } else {
+            alert("Titulo e/ou imagem estão vazio")
         }
 
     }
@@ -82,9 +103,9 @@ class Album extends React.Component {
     render() {
         return (
             <div>
-                <Navbar brand={"Album - " + this.props.location.state.dadosAlbum.titulo} item={<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#ExemploModalCentralizado">Adicionar Imagem</button>} />
-                <div className="modal fade" id="ExemploModalCentralizado" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
-                    <div className="modal-dialog modal-dialog-centered" role="document">
+                <Navbar brand={"Album - " + this.props.location.state.dadosAlbum.titulo} item={<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#ModalCentralizadoAdicionarImagem">Adicionar Imagem</button>} />
+                {/*Modal para adicionar imagem*/}
+                <Modal id="AdicionarImagem">
                         <div className="modal-content">
                             <div className="modal-header">
                                 <h5 className="modal-title" id="TituloModalCentralizado">Adicionar Imagem</h5>
@@ -103,8 +124,7 @@ class Album extends React.Component {
                                 <button type="button" className="btn btn-success" data-dismiss="modal" onClick={this.adicionarImagem}>Salvar</button>
                             </div>
                         </div>
-                    </div>
-                </div>
+                </Modal>
 
                 <div className="container">
 
@@ -112,6 +132,24 @@ class Album extends React.Component {
                         {this.state.imagens.length === 0 ? <div className="text-left">Nenhum imagem foi adicionada!</div> :
                             this.state.imagens.map((imagem) => (
                                 <div id="card" className="card" key={imagem._id}>
+
+                                    <i type="button" className="fas fa-trash fa-2x" data-toggle="modal"
+                                        data-target="#ModalCentralizadoExcluirImagem" style={{ position: "absolute", right: 0 }} onClick={() => this.pegarDadosImagem(imagem)}/>
+                                    {/* Modal para Excluir imagens */}
+                                                    <Modal id="ExcluirImagem">
+                                                        <div className="modal-content">
+                                                            <div className="modal-header">
+                                                                <h5 className="modal-title" id="TituloModalCentralizado">Excluir Imagem {this.state.tituloTemporario} ?</h5>
+                                                                <button type="button" className="close" data-dismiss="modal" aria-label="Fechar">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div className="modal-footer">
+                                                                <button type="button" className="btn btn-danger" data-dismiss="modal">Fechar</button>
+                                                                <button type="button" className="btn btn-success" data-dismiss="modal" onClick={this.excluirImagem}>Excluir</button>
+                                                            </div>
+                                                        </div>
+                                                    </Modal>
                                     <img className="card-img-top" src={imagem.url} alt="Imagem de capa do card" />
                                     <div className="card-body">
                                         <h5 className="card-title text-center">{imagem.titulo}</h5>

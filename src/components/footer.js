@@ -20,9 +20,9 @@ const footer = () => {
                     <div className="col">
                         <h4>Contato</h4>
                         <ul className="list-unstyled">
-                        <a class="fab fa-instagram" onClick={link}></a>
+                        <a className="fab fa-instagram" onClick={link}></a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <i class="fab fa-whatsapp" onClick={link}></i>
+                        <i className="fab fa-whatsapp" onClick={link}></i>
                         </ul>
 
                     </div>
@@ -40,21 +40,3 @@ const footer = () => {
 }
 
 export default footer
-
-
-           {/* <div className="card">
-                <footer className="footer bg-dark text-light text-center">
-
-                <div className="container pt-3 ">
-
-                    <div className="container col-6 col-md-2 justify-content-around  d-flex">
-
-                        <a class="fab fa-instagram" onClick={link}></a>
-                        <i class="fab fa-whatsapp" onClick={link}></i>
-                        <i class="fab fa-facebook-f"></i>
-                    </div>
-
-                </div>
-
-    </footer>
-    </div>*/}

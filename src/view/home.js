@@ -33,7 +33,7 @@ class Home extends React.Component {
     render() {
         return (
             <div>
-                <Navbar brand="Fabricio Flores Desenhos Realistas" item="Home" href="/home" />
+                <Navbar brand="Fabricio Flores Desenhos Realistas" item="Home" href="/" />
                 <div className="container">
                     <div className="card mb-3">
                         <img className="card-img-top" src={Banner} alt="Imagem de capa do card" style={{ height: "150px" }} />
@@ -41,14 +41,14 @@ class Home extends React.Component {
                 </div>
 
                 <div className="container">
-                    <div class="card-deck">
+                    <div className="card-deck">
                         {
                             this.state.albuns.map((album) => (
-                                <div id="card" class="card" onClick={() => this.abrirAlbum(album)}>
-                                    <img class="card-img-top" src={album.urlUltimaImagem ? album.urlUltimaImagem : img1} style={{height:"250px"}} alt="Imagem de capa do card" />
-                                    <div class="card-body">
-                                        <h5 class="card-title text-center">{album.titulo}</h5>
-                                        {/*<p class="card-text"><small class="text-muted">Atualizados 3 minutos atrás</small></p>*/}
+                                <div id="card" className="card" onClick={() => this.abrirAlbum(album)}>
+                                    <img className="card-img-top" src={album.urlUltimaImagem ? album.urlUltimaImagem : img1} style={{height:"250px"}} alt="Imagem de capa do card" />
+                                    <div className="card-body">
+                                        <h5 className="card-title text-center">{album.titulo}</h5>
+                                        {/*<p className="card-text"><small className="text-muted">Atualizados 3 minutos atrás</small></p>*/}
                                     </div>
                                 </div>
                             ))

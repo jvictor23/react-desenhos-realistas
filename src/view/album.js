@@ -42,14 +42,14 @@ class Album extends React.Component {
         })
     }
 
-    abrirImagem = (album) => {
-        this.setState({ imgExpanded: album.url })
+    abrirImagem = (imagem) => {
+        this.setState({ imgExpanded: imagem.url })
     }
 
     render() {
         return (
             <div>
-                <Navbar brand={"Album - " + this.state.tituloPagina} item="Home" href="/home"/>
+                <Navbar brand={"Album - " + this.state.tituloPagina} item="Home" href="/"/>
            
                 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-md">

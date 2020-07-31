@@ -6,14 +6,37 @@ import {withRouter} from 'react-router-dom'
 
 class Home extends React.Component {
 
+    constructor(props){
+        super(props);
+        this.state = {
+            nomeUsuario:''
+        }
+    }
+
+    componentDidMount(){
+        const usuarioLogado = JSON.parse(localStorage.getItem("_usuarioLogado"))
+        console.log(usuarioLogado.user.nome)
+        this.setState({nomeUsuario: usuarioLogado.user.nome+" "+ usuarioLogado.user.sobrenome})
+    }
+
     abrirGerenciamentodeImagens = ()=>{
        this.props.history.push('/admin/gerenciador-album');
+    }
+
+    deslogarUsuario = () =>{
+        localStorage.removeItem("_usuarioLogado");
     }
 
     render() {
         return (
             <div>
-                <Navbar brand="Fabricio Flores Desenhos Realistas" item="Home" />
+                <Navbar brand="Fabricio Flores Desenhos Realistas" item={
+                    <ul className="nav navbar-nav navbar-right">
+                    <a>{this.state.nomeUsuario}</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <li><a href="/admin" onClick={this.deslogarUsuario}>Sair</a></li>
+                  </ul>
+                }/>
                 <div className="container">
 
                     <div className="card-columns" style={{ marginTop: "10px" }}>

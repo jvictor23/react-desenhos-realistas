@@ -5,7 +5,7 @@ function Navbar(props) {
     return (
         <div className="container-fluid p-0">
             <nav className="navbar navbar-expand-md navbar-light" style={{backgroundColor:"#EEEDEC"}}>
-                <a className="navbar-brand" href="/home ">
+                <a className="navbar-brand" href="/">
 
                     <img src={imgBrand} style={{width:"1cm", height:"1cm", marginLeft:"100px"}}/>
                 </a>
